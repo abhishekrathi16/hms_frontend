@@ -7,3 +7,12 @@
   margin: 0;
   padding: 0;
 }
+
+/* body{
+  background: #FFD300;
+  color: white;
+} */
+
+.none{
+  display: none;
+}
