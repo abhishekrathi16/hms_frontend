@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 import { useRouter } from 'next/router'
 import useLoggerStore from "@/store/login_logoutStore";
+import useProfileStore from "@/store/profileStore";
 
 const Register = () => {
   const [hallId, setHallId] = useState("");
@@ -16,6 +17,7 @@ const Register = () => {
   const [roleError, setRoleError] = useState(false)
 
   const state = useLoggerStore()
+  const profileState = useProfileStore()
 
   const router = useRouter()
 
@@ -39,8 +41,8 @@ const Register = () => {
     }
 
     if (hallId && password && name && role) {
-      console.log(hallId, password,name,role);
       state.setLogger()
+      profileState.setProfile(name,hallId,role,password)
       router.push("/")
     }
   };

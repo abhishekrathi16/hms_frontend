@@ -13,6 +13,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import { useRouter } from 'next/router'
 import useLoggerStore from "@/store/login_logoutStore";
+import useProfileStore, { loggedInProfileStore } from "@/store/profileStore";
 
 const pages = ["Students", "Complaints", "Management", "Salary"];
 const loggedOutSettings = ["Login", "Register"];
@@ -22,7 +23,8 @@ function ResponsiveAppBar(props) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const state = useLoggerStore();
-  console.log(state);
+  const profileStore = useProfileStore();
+  const loggerProfileStore = loggedInProfileStore()
 
   const router = useRouter()
 
@@ -108,11 +110,7 @@ function ResponsiveAppBar(props) {
                 <div>
                   <MenuItem key="1" onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">
-                      <Link
-                        href={`/profile`}
-                      >
-                        Profile
-                      </Link>
+                      {profileStore.Profile.username===""?loggerProfileStore.Profile.username:profileStore.Profile.username}
                     </Typography>
                   </MenuItem>
                   <MenuItem key="2" onClick={handleCloseUserMenu}>

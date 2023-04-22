@@ -4,14 +4,18 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 import { useRouter } from 'next/router'
 import useLoggerStore from "@/store/login_logoutStore";
+import { loggedInProfileStore } from "@/store/profileStore";
 
 const Login = () => {
   const [username, setUserName] = useState("");
+  const [hallId, setHallId] = useState("")
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState(false);
+  const [hallIdError, setHallIdError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
   const state = useLoggerStore();
+  const loggerProfileStore = loggedInProfileStore()
 
   const router = useRouter()
 
@@ -20,6 +24,7 @@ const Login = () => {
 
     setUsernameError(false);
     setPasswordError(false);
+    setHallIdError(false);
 
     if (username == "") {
       setUsernameError(true);
@@ -27,9 +32,12 @@ const Login = () => {
     if (password == "") {
       setPasswordError(true);
     }
+    if(hallId==""){
+      setHallIdError(true);
+    }
 
-    if (username && password) {
-      console.log(username, password);
+    if (username && password && hallId) {
+      loggerProfileStore.setProfile(username,hallId,password)
       state.setLogger()
       router.push("/")
     }
@@ -63,6 +71,15 @@ const Login = () => {
             variant="outlined"
             error={usernameError}
             onChange={(e) => setUserName(e.target.value)}
+            sx={{ width: "400px", margin: "10px"}}
+            required="true"
+          />
+          <TextField
+            id="standard-basic"
+            label="Hall Id"
+            variant="outlined"
+            error={hallIdError}
+            onChange={(e) => setHallId(e.target.value)}
             sx={{ width: "400px", margin: "10px"}}
             required="true"
           />
