@@ -1,33 +1,36 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import { useRouter } from 'next/router'
+import useLoggerStore from "@/store/login_logoutStore";
 
 const Login = () => {
-  const [hallId, setHallId] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [idError, setIdError] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
+  const state = useLoggerStore();
 
   const router = useRouter()
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    setIdError(false);
+    setUsernameError(false);
     setPasswordError(false);
 
-    if (email == "") {
-      setIdError(true);
+    if (username == "") {
+      setUsernameError(true);
     }
     if (password == "") {
       setPasswordError(true);
     }
 
-    if (hallId && password) {
-      console.log(hallId, password);
+    if (username && password) {
+      console.log(username, password);
+      state.setLogger()
       router.push("/")
     }
   };
@@ -56,10 +59,10 @@ const Login = () => {
         >
           <TextField
             id="standard-basic"
-            label="Hall Id"
+            label="User Name"
             variant="outlined"
-            error={idError}
-            onChange={(e) => setHallId(e.target.value)}
+            error={usernameError}
+            onChange={(e) => setUserName(e.target.value)}
             sx={{ width: "400px", margin: "10px"}}
             required="true"
           />

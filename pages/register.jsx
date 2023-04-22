@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import { useRouter } from 'next/router'
+import useLoggerStore from "@/store/login_logoutStore";
 
 const Register = () => {
   const [hallId, setHallId] = useState("");
@@ -14,6 +14,8 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [nameError, setNameError] = useState(false)
   const [roleError, setRoleError] = useState(false)
+
+  const state = useLoggerStore()
 
   const router = useRouter()
 
@@ -38,6 +40,7 @@ const Register = () => {
 
     if (hallId && password && name && role) {
       console.log(hallId, password,name,role);
+      state.setLogger()
       router.push("/")
     }
   };
@@ -66,7 +69,7 @@ const Register = () => {
         >
           <TextField
             id="standard-basic"
-            label="Name"
+            label="User Name"
             variant="outlined"
             error={nameError}
             onChange={(e) => setName(e.target.value)}

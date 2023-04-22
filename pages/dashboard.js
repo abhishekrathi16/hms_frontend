@@ -1,11 +1,11 @@
 import Navbar from '../components/Navbar'
 import Typography from '@mui/material/Typography';
-// import hallinfo from '../public/dummyjson/hall.json'
+import hallinfo from '../public/dummyjson/hall.json'
 
 export default function Home() {
   return (
     <>
-    {/* {hallinfo.map((element, id) => {
+    {hallinfo.map((element, id) => {
         return (
             <table key={id}>
                 <thead>
@@ -24,7 +24,7 @@ export default function Home() {
                 </tbody>
             </table>
         );
-    })} */}
+    })}
     </>
   );
 }

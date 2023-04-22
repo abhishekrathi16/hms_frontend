@@ -1,0 +1,97 @@
+[{
+        "id": 1,
+        "name": "a1",
+        "type": "new",
+        "total_rooms": 200,
+        "rooms_available": 120,
+        "room": [{
+                "id": 1,
+                "hallno": 1,
+                "room_capacity": 2,
+                "occupancy": 0,
+                "cost": 150
+            },
+            {
+                "id": 2,
+                "hallno": 1,
+                "room_capacity": 2,
+                "occupancy": 1,
+                "cost": 150
+            },
+            {
+                "id": 3,
+                "hallno": 1,
+                "room_capacity": 2,
+                "occupancy": 2,
+                "cost": 150
+            }
+        ],
+        "amenities": 1500,
+        "salary_grant": 20000,
+        "maintainance_grant": 10000
+    },
+    {
+        "id": 2,
+        "name": "a1",
+        "type": "new",
+        "total_rooms": 200,
+        "rooms_available": 120,
+        "room": [{
+                "id": 1,
+                "hallno": 2,
+                "room_capacity": 2,
+                "occupancy": 0,
+                "cost": 150
+            },
+            {
+                "id": 2,
+                "hallno": 2,
+                "room_capacity": 2,
+                "occupancy": 1,
+                "cost": 150
+            },
+            {
+                "id": 3,
+                "hallno": 2,
+                "room_capacity": 2,
+                "occupancy": 2,
+                "cost": 150
+            }
+        ],
+        "amenities": 1500,
+        "salary_grant": 20000,
+        "maintainance_grant": 10000
+    },
+    {
+        "id": 3,
+        "name": "a1",
+        "type": "new",
+        "total_rooms": 200,
+        "rooms_available": 120,
+        "room": [{
+                "id": 1,
+                "hallno": 3,
+                "room_capacity": 2,
+                "occupancy": 0,
+                "cost": 150
+            },
+            {
+                "id": 2,
+                "hallno": 3,
+                "room_capacity": 2,
+                "occupancy": 1,
+                "cost": 150
+            },
+            {
+                "id": 3,
+                "hallno": 3,
+                "room_capacity": 2,
+                "occupancy": 2,
+                "cost": 150
+            }
+        ],
+        "amenities": 1500,
+        "salary_grant": 20000,
+        "maintainance_grant": 10000
+    }
+]

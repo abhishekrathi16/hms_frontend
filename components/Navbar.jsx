@@ -10,18 +10,21 @@ import Container from "@mui/material/Container";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
-import MenuIcon from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
 import Button from "@mui/material/Button";
+import { useRouter } from 'next/router'
+import useLoggerStore from "@/store/login_logoutStore";
 
 const pages = ["Students", "Complaints", "Management", "Salary"];
-const loggedInSettings = ["Profile", "Account", "Dashboard", "Logout"];
 const loggedOutSettings = ["Login", "Register"];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  const state = useLoggerStore();
+  console.log(state);
+
+  const router = useRouter()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,6 +41,12 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const handleLogOut = () => {
+    // props.setIsLoggedIn(false)
+    state.setLogger()
+    router.push("/")
+  }
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl" sx={{ backgroundColor: "black" }}>
@@ -45,8 +54,8 @@ function ResponsiveAppBar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            // component="a"
+            // href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -66,7 +75,7 @@ function ResponsiveAppBar() {
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
-                className={`${isLoggedIn? "" : "none"}`}
+                className={`${state.loggedIn ? "" : "none"}`}
               >
                 <Link href={`/` + page.toLowerCase()}>{page}</Link>
               </Button>
@@ -95,27 +104,54 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {isLoggedIn
-                ? loggedInSettings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">
-                        <Link
-                          href={
-                            `/` + setting.toLowerCase().replace(/\s/g, "")
-                          }
-                        >
-                          {setting}
-                        </Link>
-                      </Typography>
-                    </MenuItem>
-                  ))
-                : loggedOutSettings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">
-                        <Link href={`/` + setting.toLowerCase().replace(/\s/g,"")}>{setting}</Link>
-                      </Typography>
-                    </MenuItem>
-                  ))}
+              {state.loggedIn ? 
+                <div>
+                  <MenuItem key="1" onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link
+                        href={`/profile`}
+                      >
+                        Profile
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem key="2" onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link
+                        href={`/dashboard`}
+                      >
+                        Dashboard
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem key="3" onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link
+                        href={`/account`}
+                      >
+                        Account
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem key="4" onClick={handleLogOut}>
+                    <Typography textAlign="center">
+                        Logout
+                    </Typography>
+                  </MenuItem>
+                </div>
+               : (
+                loggedOutSettings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                      <Link
+                        href={`/` + setting.toLowerCase().replace(/\s/g, "")}
+                      >
+                        {setting}
+                      </Link>
+                    </Typography>
+                  </MenuItem>
+                ))
+              )}
             </Menu>
           </Box>
         </Toolbar>

@@ -1,10 +1,11 @@
-import React from "react";
+import React,{ useState } from "react";
 import ResponsiveAppBar from "./Navbar"
 
 const Layout = ({children}) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
   return (
     <>
-      <ResponsiveAppBar />
+      <ResponsiveAppBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
       <div>{children}</div>
     </>
   );
