@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 
 import Students from '@/components/Students';
 import Staff from '@/components/Staff';
+import Halls from '@/components/Halls';
+import Complaints from '@/components/Complaints';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,11 +57,11 @@ function BasicTabs() {
           <Tab label="Halls" sx={{width:"100%", color:"white"}} {...a11yProps(0)} />
           <Tab label="Students" sx={{width:"100%", color:"white"}} {...a11yProps(1)} />
           <Tab label="Staff" sx={{width:"100%", color:"white"}} {...a11yProps(2)} />
-          <Tab label="Charges" sx={{width:"100%", color:"white"}} {...a11yProps(3)} />
+          <Tab label="Complaints" sx={{width:"100%", color:"white"}} {...a11yProps(3)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Halls
+        <Halls/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Students/>
@@ -68,7 +70,7 @@ function BasicTabs() {
         <Staff />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Charges
+        <Complaints/>
       </TabPanel>
     </Box>
   );
