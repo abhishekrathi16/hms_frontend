@@ -18,7 +18,7 @@ import useProfileStore, { loggedInProfileStore } from "@/store/profileStore";
 const pages = ["Students", "Complaints", "Management", "Salary"];
 const loggedOutSettings = ["Login", "Register"];
 
-function ResponsiveAppBar(props) {
+function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 

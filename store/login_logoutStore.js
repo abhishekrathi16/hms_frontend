@@ -1,7 +1,7 @@
 import { create } from "zustand";
   
 const useLoggerStore = create((set)=>({
-    loggedIn: true,
+    loggedIn: false,
     setLogger: ()=>{
         set((state)=>({
             ...state,
