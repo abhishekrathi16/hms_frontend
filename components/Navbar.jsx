@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import useLoggerStore from "@/store/login_logoutStore";
 import useProfileStore, { loggedInProfileStore } from "@/store/profileStore";
 
-const pages = ["Students", "Dashboard"];
+const pages = ["Dashboard"];
 const loggedOutSettings = ["Login", "Register"];
 
 function ResponsiveAppBar() {
