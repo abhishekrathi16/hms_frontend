@@ -76,7 +76,7 @@ function ResponsiveAppBar() {
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
-                className={`${state.loggedIn ? "none" : ""}`}
+                className={`${state.loggedIn ? "" : "none"}`}
               >
                 <Link href={`/` + page.toLowerCase()}>{page}</Link>
               </Button>
