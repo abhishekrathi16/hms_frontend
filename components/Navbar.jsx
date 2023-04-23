@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import useLoggerStore from "@/store/login_logoutStore";
 import useProfileStore, { loggedInProfileStore } from "@/store/profileStore";
 
-const pages = ["Students", "Management", "Salary"];
+const pages = ["Students", "Dashboard"];
 const loggedOutSettings = ["Login", "Register"];
 
 function ResponsiveAppBar() {
@@ -118,15 +118,6 @@ function ResponsiveAppBar() {
                         href={`/dashboard`}
                       >
                         Dashboard
-                      </Link>
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem key="3" onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">
-                      <Link
-                        href={`/account`}
-                      >
-                        Account
                       </Link>
                     </Typography>
                   </MenuItem>
