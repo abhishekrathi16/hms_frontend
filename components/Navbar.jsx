@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import useLoggerStore from "@/store/login_logoutStore";
 import useProfileStore, { loggedInProfileStore } from "@/store/profileStore";
 
-const pages = ["Students", "Complaints", "Management", "Salary"];
+const pages = ["Students", "Management", "Salary"];
 const loggedOutSettings = ["Login", "Register"];
 
 function ResponsiveAppBar() {
@@ -44,7 +44,6 @@ function ResponsiveAppBar() {
   };
 
   const handleLogOut = () => {
-    // props.setIsLoggedIn(false)
     state.setLogger()
     router.push("/")
   }
@@ -77,7 +76,7 @@ function ResponsiveAppBar() {
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
-                className={`${state.loggedIn ? "" : "none"}`}
+                className={`${state.loggedIn ? "none" : ""}`}
               >
                 <Link href={`/` + page.toLowerCase()}>{page}</Link>
               </Button>
