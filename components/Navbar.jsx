@@ -13,7 +13,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import { useRouter } from 'next/router'
 import useLoggerStore from "@/store/login_logoutStore";
-import useProfileStore, { loggedInProfileStore } from "@/store/profileStore";
+import { loggedInProfileStore } from "@/store/profileStore";
 
 const pages = ["Dashboard"];
 const loggedOutSettings = ["Login", "Register"];
@@ -23,7 +23,6 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const state = useLoggerStore();
-  const profileStore = useProfileStore();
   const loggerProfileStore = loggedInProfileStore()
 
   const router = useRouter()
@@ -44,7 +43,11 @@ function ResponsiveAppBar() {
   };
 
   const handleLogOut = () => {
-    state.setLogger()
+    state.setLogger(false)
+    console.log(state.loggedIn);
+    localStorage.removeItem("userName");
+    localStorage.removeItem("hallId");
+    localStorage.removeItem("token");
     router.push("/")
   }
 
@@ -105,29 +108,23 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {state.loggedIn ? 
+              {state.loggedIn ? (
                 <div>
                   <MenuItem key="1" onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">
-                      {profileStore.Profile.username===""?loggerProfileStore.Profile.username:profileStore.Profile.username}
+                      {loggerProfileStore.userName}
                     </Typography>
                   </MenuItem>
                   <MenuItem key="2" onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">
-                      <Link
-                        href={`/dashboard`}
-                      >
-                        Dashboard
-                      </Link>
+                      <Link href={`/dashboard`}>Dashboard</Link>
                     </Typography>
                   </MenuItem>
                   <MenuItem key="4" onClick={handleLogOut}>
-                    <Typography textAlign="center">
-                        Logout
-                    </Typography>
+                    <Typography textAlign="center">Logout</Typography>
                   </MenuItem>
                 </div>
-               : (
+              ) : (
                 loggedOutSettings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">

@@ -69,13 +69,16 @@ function BasicTable() {
 
     // to add new student details to the rows array
     if (staffId && name && position && hallId && salary) {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
       axios.post(baseUrl, {
           _id: "",
           name: name,
           position: position,
           salary: salary,
           hall_no: hallId,
-        })
+        },{headers})
         .then(function (response) {
           console.log(response);
         })
@@ -90,12 +93,18 @@ function BasicTable() {
     }
   };
   const handleDelete = (id) => {
-    axios.delete(baseUrl + `${id}`);
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    axios.delete(baseUrl + `${id}`, {headers});
   };
 
   useEffect(() => {
     try {
-      axios.get(baseUrl).then((response) => {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
+      axios.get(baseUrl,{headers}).then((response) => {
         setStaff(response.data);
       });
     } catch (error) {
