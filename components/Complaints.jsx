@@ -62,13 +62,14 @@ const Complaints = () => {
       <div>
         {complaints?.map((complaint) => {
           return (
+            <div key={complaint._id} className={complaint.is_resolved?"none":""}>
             <ComplaintCard
-              key={complaint._id}
               complaintId={complaint._id}
               description={complaint.description}
               isResolved={complaint.is_resolved}
               studentId={complaint.student_id}
             />
+            </div>
           );
         })}
       </div>
