@@ -2,10 +2,9 @@ import { create } from "zustand";
   
 const useLoggerStore = create((set)=>({
     loggedIn: false,
-    setLogger: ()=>{
+    setLogger: (value)=>{
         set((state)=>({
-            ...state,
-            loggedIn: !state.loggedIn
+            loggedIn: state.loggedIn = value
         }))
     }
 }))

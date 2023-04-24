@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useProfileStore, { loggedInProfileStore } from "@/store/profileStore";
+import  { loggedInProfileStore } from "@/store/profileStore";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -8,7 +8,6 @@ const baseUrl =
   "https://django-server-production-b3bd.up.railway.app/api/halls/";
 
 const Halls = () => {
-  const registerProfileStore = useProfileStore();
   const loggerProfileStore = loggedInProfileStore();
 
   const [hallData, setHallData] = useState(null);
@@ -17,23 +16,28 @@ const Halls = () => {
   const [expSalary, setExpSalary] = useState(0);
   const [expMaintainance, setExpMaintainance] = useState(0);
 
-  let hallId = registerProfileStore.Profile.hallId
-    ? registerProfileStore.Profile.hallId
-    : loggerProfileStore.Profile.hallId;
+  let hallId =loggerProfileStore.hallId
 
   useEffect(() => {
     try {
-      axios.get(baseUrl + `${hallId}` + "/").then((response) => {
+      let hallId = localStorage.getItem('hallId')
+      const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+      axios.get(baseUrl + `${hallId}` + "/",{
+        headers
+      }).then((response) => {
         setHallData(response.data);
       });
     } catch (error) {
-      console.log(error.response.data.message);
+      console.log(error);
     }
     // console.log(hallData);
   }, [hallId, hallData]);
 
   const handleChanges = (event) => {
     event.preventDefault();
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
     axios
       .put(baseUrl + `${hallId}` + "/", {
         _id: hallData?._id,
@@ -44,8 +48,11 @@ const Halls = () => {
         amenities: hallData?.amenities,
         salary_grant: hallData?.salary_grant - expSalary,
         maintainance_grant: hallData?.maintainance_grant - expMaintainance,
-      })
+      },{headers})
       .then((response) => {
+        setRooms(0)
+        setExpSalary(0)
+        setExpMaintainance(0)
         console.log(response.data);
       })
       .catch((error) => {

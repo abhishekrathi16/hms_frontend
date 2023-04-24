@@ -3,17 +3,16 @@ import Image from 'next/image';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const LandingPage = () => {
+const   LandingPage = () => {
     return (
         <Box sx={{
-            display: 'inline-flex',
+            display: 'flex',
             flexDirection: 'column',
             backgroundColor: '#b00b',
             textAlign: 'center',
+            width:"100vw",
+            height:"91.1vh",
             alignItems: 'center',
-            maxHeight: '100vh',
-            height: '100vh',
-            width: '100vw',
             justifyContent: 'center',
             }} >
                 <Image src={'/schedule.png'}
@@ -43,3 +42,7 @@ const LandingPage = () => {
 }
 
 export default LandingPage;
+
+// maxHeight: '100vh',
+//             height: '100vh',
+//             width: '100vw',

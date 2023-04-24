@@ -66,7 +66,9 @@ function BasicTable() {
   const [updateMessCharge, setUpdateMessCharge] = useState(0);
   const [updateAmenityCharge, setUpdateAmenityCharge] = useState(0);
   const [updateRoomRent, setUpdateRoomRent] = useState(0);
-
+  const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
   const handleAdd = (event) => {
     event.preventDefault();
 
@@ -121,6 +123,7 @@ function BasicTable() {
       amenityCharge &&
       roomRent
     ) {
+      
       axios
         .post(baseUrl, {
           _id: studentId,
@@ -132,7 +135,7 @@ function BasicTable() {
           room_rent: roomRent,
           hall_assigned: hallId,
           room_assigned: roomId,
-        })
+        },{headers})
         .then(function (response) {
           console.log(response);
         })
@@ -151,14 +154,14 @@ function BasicTable() {
     }
   };
   const handleDelete = (id) => {
-    axios.delete(baseUrl + `${id}`);
+    axios.delete(baseUrl + `${id}`, {headers});
   };
   const handleUpdate = (event) => {
     event.preventDefault();
     try {
       axios.get(baseUrl + `${updateStudentId}/`).then((response) => {
         setUpdatedStudent(response.data);
-      });
+      }, {headers});
     } catch (error) {
       console.log(error.response.data.message);
     }
@@ -174,13 +177,16 @@ function BasicTable() {
         room_rent: updatedStudent?.room_rent - updateRoomRent,
         hall_assigned: updatedStudent?.hall_assigned,
         room_assigned: updatedStudent?.room_assigned,
-      });
+      },{headers});
     }
   };
 
   useEffect(() => {
     try {
-      axios.get(baseUrl).then((response) => {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
+      axios.get(baseUrl,{headers}).then((response) => {
         setStudents(response.data);
       });
     } catch (error) {
