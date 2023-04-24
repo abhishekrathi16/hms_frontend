@@ -8,7 +8,7 @@ const LandingPage = () => {
         <Box sx={{
             display: 'inline-flex',
             flexDirection: 'column',
-            backgroundColor: '#FFD300',
+            backgroundColor: '#b00b',
             textAlign: 'center',
             alignItems: 'center',
             maxHeight: '100vh',
