@@ -60,6 +60,13 @@ function BasicTable() {
   const [amenityChargeError, setAmenityChargeError] = useState("");
   const [roomRentError, setRoomRentError] = useState("");
 
+  // for updating student
+  const [updatedStudent, setUpdatedStudent] = useState(null);
+  const [updateStudentId, setUpdateStudentId] = useState("");
+  const [updateMessCharge, setUpdateMessCharge] = useState(0);
+  const [updateAmenityCharge, setUpdateAmenityCharge] = useState(0);
+  const [updateRoomRent, setUpdateRoomRent] = useState(0);
+
   const handleAdd = (event) => {
     event.preventDefault();
 
@@ -146,6 +153,30 @@ function BasicTable() {
   const handleDelete = (id) => {
     axios.delete(baseUrl + `${id}`);
   };
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    try {
+      axios.get(baseUrl + `${updateStudentId}/`).then((response) => {
+        setUpdatedStudent(response.data);
+      });
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+    console.log(updatedStudent);
+    if (updatedStudent !== null) {
+      axios.put(baseUrl + `${updateStudentId}/`, {
+        _id: updateStudentId,
+        name: updatedStudent?.name,
+        address: updatedStudent?.address,
+        contact_no: updatedStudent?.contact_no,
+        mess_charge: updatedStudent?.mess_charge - updateMessCharge,
+        amenity_charge: updatedStudent?.amenity_charge - updateAmenityCharge,
+        room_rent: updatedStudent?.room_rent - updateRoomRent,
+        hall_assigned: updatedStudent?.hall_assigned,
+        room_assigned: updatedStudent?.room_assigned,
+      });
+    }
+  };
 
   useEffect(() => {
     try {
@@ -156,7 +187,7 @@ function BasicTable() {
       console.log(error.response.data.message);
     }
   }, [students]);
-//   console.log(students);
+  //   console.log(students);
 
   return (
     <>
@@ -321,6 +352,72 @@ function BasicTable() {
             sx={{ marginTop: "15px", width: "auto" }}
           >
             Add Student
+          </Button>
+        </form>
+      </div>
+
+      <div className="form mb-10">
+        <div
+          style={{
+            fontSize: "1.4rem",
+            fontStyle: "bold",
+            fontFamily: "monospace",
+            background: "black",
+            color: "white",
+            padding: "8px 20px",
+          }}
+        >
+          Fees Paid
+        </div>
+        <form
+          className="mt-4"
+          onSubmit={handleUpdate}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div className="grid grid-rows-2 grid-cols-2">
+            <TextField
+              id="standard-basic"
+              label="Student Id"
+              variant="outlined"
+              onChange={(e) => setUpdateStudentId(e.target.value)}
+              sx={{ width: "400px", margin: "10px" }}
+            />
+            <TextField
+              id="standard-basic"
+              label="Mess Charges"
+              type="number"
+              variant="outlined"
+              sx={{ width: "400px", margin: "10px" }}
+              onChange={(e) => setUpdateMessCharge(parseInt(e.target.value))}
+            />
+            <TextField
+              id="standard-basic"
+              label="Amenity Charges"
+              type="number"
+              variant="outlined"
+              sx={{ width: "400px", margin: "10px" }}
+              onChange={(e) => setUpdateAmenityCharge(parseInt(e.target.value))}
+            />
+            <TextField
+              id=""
+              label="Room Rent"
+              type="number"
+              variant="outlined"
+              sx={{ width: "400px", margin: "10px" }}
+              onChange={(e) => setUpdateRoomRent(parseInt(e.target.value))}
+            />
+          </div>
+          <Button
+            variant="outlined"
+            type="submit"
+            sx={{ marginTop: "15px", width: "auto" }}
+          >
+            Update
           </Button>
         </form>
       </div>

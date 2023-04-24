@@ -23,8 +23,8 @@ export default function ComplaintCard(props) {
     })
   };
   return (
-    <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">
+    <Box sx={{ minWidth: 275 }} >
+      <Card variant="outlined" >
         <React.Fragment>
           <CardContent sx={{ paddingBottom: "0px" }}>
             <Typography
