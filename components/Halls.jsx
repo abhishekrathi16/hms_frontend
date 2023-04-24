@@ -3,6 +3,12 @@ import  { loggedInProfileStore } from "@/store/profileStore";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Table from "@mui/material/Table";
 
 const baseUrl =
   "https://django-server-production-b3bd.up.railway.app/api/halls/";
@@ -44,7 +50,7 @@ const Halls = () => {
         _type: hallData?._type,
         name: hallData?.name,
         total_rooms: hallData?.total_rooms,
-        rooms_available: hallData?.rooms_available-rooms,
+        rooms_available: hallData?.rooms_available - rooms,
         amenities: hallData?.amenities,
         salary_grant: hallData?.salary_grant - expSalary,
         maintainance_grant: hallData?.maintainance_grant - expMaintainance,
@@ -62,26 +68,51 @@ const Halls = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-[80vh]">
-        <div className="border-2 p-[50px] rounded-lg shadow-xl text-2xl">
-          <div className="text-left">Hall Id: {hallData?._id}</div>
-          <div className="text-left">Hall Type: {hallData?._type}</div>
-          <div className="text-left">Hall Name: {hallData?.name}</div>
-          <div className="text-left">Total Rooms: {hallData?.total_rooms}</div>
-          <div className="text-left">
-            Rooms Available: {hallData?.rooms_available}
-          </div>
-          <div className="text-left">Amenities: {hallData?.amenities}</div>
-          <div className="text-left">
-            Maintainance Grant Left: {hallData?.maintainance_grant}
-          </div>
-          <div className="text-left">
-            Salary Grant Left: {hallData?.salary_grant}
-          </div>
+      <div className="grid grid-rows-2 grid-cols-2 h-[80vh]">
+        <div className="text-2xl flex flex-col justify-center items-center mt-5 h-[80vh]">
+          <Table>
+            <TableBody>
+              <TableRow>
+                <TableCell variant="head">Hall Id</TableCell>
+                <TableCell>{hallData?._id}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell variant="head">Hall Type</TableCell>
+                <TableCell>{hallData?._type}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell variant="head">Hall Name</TableCell>
+                <TableCell>{hallData?.name}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell variant="head">Total Rooms</TableCell>
+                <TableCell>{hallData?.total_rooms}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell variant="head">Rooms Available</TableCell>
+                <TableCell>{hallData?.rooms_available}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell variant="head">Amenities</TableCell>
+                <TableCell>{hallData?.amenities}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell variant="head">Maintainance Grant Left</TableCell>
+                <TableCell>{hallData?.maintainance_grant}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell variant="head">Salary Grant Left</TableCell>
+                <TableCell>{hallData?.salary_grant}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
-        <div className="border-2 p-[50px] rounded-lg shadow-xl text-2xl">
-          <form className="flex flex-col justify-center items-center" onSubmit={handleChanges}>
-          <TextField
+        <div className="text-2xl flex justify-center items-center h-[80vh]">
+          <form
+            className="flex flex-col justify-center items-center"
+            onSubmit={handleChanges}
+          >
+            <TextField
               id=""
               label="Rooms Emptied/TakenUp"
               type="number"
@@ -106,12 +137,12 @@ const Halls = () => {
               onChange={(e) => setExpMaintainance(parseInt(e.target.value))}
             />
             <Button
-            variant="outlined"
-            type="submit"
-            sx={{ marginTop: "15px", width: "auto" }}
-          >
-            Add Changes
-          </Button>
+              variant="outlined"
+              type="submit"
+              sx={{ marginTop: "15px", width: "auto" }}
+            >
+              Add Changes
+            </Button>
           </form>
         </div>
       </div>
