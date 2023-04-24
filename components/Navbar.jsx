@@ -48,8 +48,6 @@ function ResponsiveAppBar() {
     localStorage.removeItem("userName");
     localStorage.removeItem("hallId");
     localStorage.removeItem("token");
-    loggerProfileStore.setProfile({userName:"", hallId:""})
-    loggerProfileStore.setToken("")
     router.push("/")
   }
 
