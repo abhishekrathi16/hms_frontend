@@ -1,0 +1,46 @@
+[
+    {
+        "id": "2020UGCS027R",
+        "name": "Abhishek",
+        "address": "9, Sahara Road, Chandni, Mumbai, 900124",
+        "contactNumber": "9876543210",
+        "hallID": "H-1",
+        "roomID": "C-105",
+        "messCharge": 30000,
+        "amenityCharge": 10000,
+        "roomRent": 10000
+    },
+    {
+        "id": "2020UGCS027R",
+        "name": "Abhishek",
+        "address": "9, Sahara Road, Chandni, Mumbai, 900124",
+        "contactNumber": "9876543210",
+        "hallID": "H-3",
+        "roomID": "B-110",
+        "messCharge": 20000,
+        "amenityCharge": 10000,
+        "roomRent": 10000
+    },
+    {
+        "id": "2020UGCS027R",
+        "name": "Abhishek",
+        "address": "9, Sahara Road, Chandni, Mumbai, 900124",
+        "contactNumber": "9876543210",
+        "hallID": "H-4",
+        "roomID": "A-102",
+        "messCharge": 18000,
+        "amenityCharge": 10000,
+        "roomRent": 10000
+    },
+    {
+        "id": "2020UGCS027R",
+        "name": "Abhishek",
+        "address": "9, Sahara Road, Chandni, Mumbai, ,900124",
+        "contactNumber": "9876543210",
+        "hallID": "H-6",
+        "roomID": "R-103",
+        "messCharge": 13000,
+        "amenityCharge": 10000,
+        "roomRent": 10000
+    }
+]
