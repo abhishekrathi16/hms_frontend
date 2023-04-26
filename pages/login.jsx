@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from 'next/router'
 import useLoggerStore from "@/store/login_logoutStore";
 import { loggedInProfileStore } from "@/store/profileStore";
+import axios from "axios";
 
 const Login = () => {
   const [username, setUserName] = useState("");
@@ -18,6 +19,8 @@ const Login = () => {
   const loggerProfileStore = loggedInProfileStore()
 
   const router = useRouter()
+
+  const BaseUrl = "https://django-server-production-b3bd.up.railway.app/api/login/";
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -37,9 +40,27 @@ const Login = () => {
     }
 
     if (username && password && hallId) {
-      loggerProfileStore.setProfile(username,hallId,password)
-      state.setLogger()
-      router.push("/")
+      axios
+        .post(BaseUrl, {
+          username: username,
+          hallId: hallId,
+          password: password,
+        })
+        .then((res) => {
+          console.log(res.data.token);
+          loggerProfileStore.setProfile({username, hallId, password});
+          loggerProfileStore.setToken(res.data.token);
+          localStorage.setItem("userName", username);
+          localStorage.setItem("hallId", hallId);
+          localStorage.setItem("token", res.data.token);
+          state.setLogger(true)
+          router.push("/")
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      
+      
     }
   };
   return (
@@ -106,7 +127,7 @@ const Login = () => {
           Not Registered Yet? Click{" "}
           <Link href="/register" className="text-cyan-600">
             here
-          </Link>{" "}
+          </Link>
           to register.
         </div>
       </div>

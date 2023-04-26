@@ -66,7 +66,9 @@ function BasicTable() {
   const [updateMessCharge, setUpdateMessCharge] = useState(0);
   const [updateAmenityCharge, setUpdateAmenityCharge] = useState(0);
   const [updateRoomRent, setUpdateRoomRent] = useState(0);
-
+  // const headers = {
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     };
   const handleAdd = (event) => {
     event.preventDefault();
 
@@ -121,6 +123,9 @@ function BasicTable() {
       amenityCharge &&
       roomRent
     ) {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
       axios
         .post(baseUrl, {
           _id: studentId,
@@ -132,7 +137,7 @@ function BasicTable() {
           room_rent: roomRent,
           hall_assigned: hallId,
           room_assigned: roomId,
-        })
+        },{headers})
         .then(function (response) {
           console.log(response);
         })
@@ -151,43 +156,66 @@ function BasicTable() {
     }
   };
   const handleDelete = (id) => {
-    axios.delete(baseUrl + `${id}`);
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    axios.delete(baseUrl + `${id}/`, {headers});
   };
+
+
   const handleUpdate = (event) => {
     event.preventDefault();
+    console.log(updateStudentId);
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    
     try {
-      axios.get(baseUrl + `${updateStudentId}/`).then((response) => {
-        setUpdatedStudent(response.data);
+      axios.get(baseUrl + `${updateStudentId}/`, {headers}).then((response) => {
+        console.log(response.data)
+        const updatecheck = async () => {
+          const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          };
+          axios.put(
+            baseUrl + `${response.data._id}/`,
+            {
+              _id: response.data._id,
+              name: response.data?.name,
+              address: response.data?.address,
+              contact_no: response.data?.contact_no,
+              mess_charge: response.data?.mess_charge - updateMessCharge,
+              amenity_charge:
+                response.data?.amenity_charge - updateAmenityCharge,
+              room_rent: response.data?.room_rent - updateRoomRent,
+              hall_assigned: response.data?.hall_assigned,
+              room_assigned: response.data?.room_assigned,
+            },
+            { headers }
+          );
+        };
+
+        updatecheck();
       });
     } catch (error) {
       console.log(error.response.data.message);
     }
-    console.log(updatedStudent);
-    if (updatedStudent !== null) {
-      axios.put(baseUrl + `${updateStudentId}/`, {
-        _id: updateStudentId,
-        name: updatedStudent?.name,
-        address: updatedStudent?.address,
-        contact_no: updatedStudent?.contact_no,
-        mess_charge: updatedStudent?.mess_charge - updateMessCharge,
-        amenity_charge: updatedStudent?.amenity_charge - updateAmenityCharge,
-        room_rent: updatedStudent?.room_rent - updateRoomRent,
-        hall_assigned: updatedStudent?.hall_assigned,
-        room_assigned: updatedStudent?.room_assigned,
-      });
-    }
+   
   };
 
   useEffect(() => {
     try {
-      axios.get(baseUrl).then((response) => {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
+      axios.get(baseUrl,{headers}).then((response) => {
         setStudents(response.data);
       });
     } catch (error) {
       console.log(error.response.data.message);
     }
   }, [students]);
-  //   console.log(students);
+
 
   return (
     <>
