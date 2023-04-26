@@ -14,13 +14,16 @@ export default function ComplaintCard(props) {
   const [value, setValue] = React.useState(true);
   const handleSendSelection = (id) => {
     setValue(!value);
-    // console.log(value);
-
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
     axios.put(baseUrl+`${id}/`,{
+        _id:`${id}`,
         description: props.description,
         is_resolved: value,
+        hall:props.hall,
         student_id: props.studentId,
-    })
+    },{headers})
   };
   return (
     <Box sx={{ minWidth: 275 }} >
