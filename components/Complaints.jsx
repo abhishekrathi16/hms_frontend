@@ -50,11 +50,16 @@ const Complaints = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       };
       axios
-        .post(baseUrl, {
-          description: complaintDesc,
-          is_resolved: false,
-          student_id: studentId,
-        },{headers})
+        .post(
+          baseUrl,
+          {
+            description: complaintDesc,
+            is_resolved: false,
+            hall: localStorage.getItem("hallId"),
+            student_id: studentId,
+          },
+          { headers }
+        )
         .then(function (response) {
           console.log(response);
         })
@@ -68,13 +73,17 @@ const Complaints = () => {
       <div>
         {complaints?.map((complaint) => {
           return (
-            <div key={complaint._id} className={complaint.is_resolved?"none":""}>
-            <ComplaintCard
-              complaintId={complaint._id}
-              description={complaint.description}
-              isResolved={complaint.is_resolved}
-              studentId={complaint.student_id}
-            />
+            <div
+              key={complaint._id}
+              className={complaint.is_resolved ? "none" : ""}
+            >
+              <ComplaintCard
+                complaintId={complaint._id}
+                description={complaint.description}
+                isResolved={complaint.is_resolved}
+                studentId={complaint.student_id}
+                hall={complaint.hall}
+              />
             </div>
           );
         })}

@@ -96,7 +96,7 @@ function BasicTable() {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     };
-    axios.delete(baseUrl + `${id}`, {headers});
+    axios.delete(baseUrl + `${id}/`, {headers});
   };
 
   useEffect(() => {
